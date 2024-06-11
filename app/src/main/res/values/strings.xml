@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Volt NFC Android</string>
+
+    <string name="reset_title">Factory Reset</string>
+    <string name="reset_instructions_one">Your fixture will be restored to factory settings. All configured settings will be removed.</string>
+    <string name="reset_instructions_two">Voice assistants and third-party services will be removed from this fixture, if configured.</string>
+    <string name="reset_btn_text">Reset Fixture to Factory Settings</string>
+
+    <string name="nfc_write_title">Near Field Communication</string>
+    <string name="nfc_write_instructions_one">Hold your phone on the lens of the fixture you’d like to reset.</string>
+</resources>

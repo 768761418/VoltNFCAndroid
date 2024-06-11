@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="index_bg">#1e1e1e</color>
+    <color name="instructions_color">#ffffff</color>
+    <color name="btn_reset">#101010</color>
+    <color name="btn_reset_text">#fe3b30</color>
+</resources>
