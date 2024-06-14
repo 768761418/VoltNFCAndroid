@@ -14,7 +14,7 @@ android {
         minSdk = 23
         targetSdk = 33
         versionCode = 1
-        versionName = "V1.0"
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,7 +26,7 @@ android {
                 val versionName = config.versionName
                 val formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
                 val createTime =LocalDateTime.now().format(formatter)
-                this.outputFileName = "hotelTv-V${versionName}-$createTime.apk"
+                this.outputFileName = "volt-nfc-android-V${versionName}-$createTime.apk"
             }
         }
     }
