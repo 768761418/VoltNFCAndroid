@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@color/white"/>
+                android:src="@drawable/icon_nfc_write_logo"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,8 +44,27 @@
                 android:textStyle="normal"
                 android:text="@string/nfc_write_instructions_one"
                 android:layout_marginTop="20dp"/>
+        </LinearLayout>
 
 
+        <LinearLayout
+            android:id="@+id/btn_cancel"
+            android:layout_width="500dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/btn_reset"
+            android:layout_marginBottom="50dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/btn_reset_text"
+                android:text="@string/nfc_write_cancel"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 
