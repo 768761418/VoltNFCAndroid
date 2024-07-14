@@ -19,7 +19,7 @@ public class NfcUtils {
      * @return
      */
     public static NdefRecord createTextRecord(String text) {
-        byte[] langBytes = Locale.CHINA.getLanguage().getBytes(Charset.forName("US-ASCII"));
+        byte[] langBytes = Locale.ENGLISH.getLanguage().getBytes(Charset.forName("US-ASCII"));
         Charset utfEncoding = Charset.forName("UTF-8");
         //将文本转换为UTF-8格式
         byte[] textBytes = text.getBytes(utfEncoding);

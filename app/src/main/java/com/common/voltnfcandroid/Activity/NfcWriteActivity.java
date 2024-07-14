@@ -17,10 +17,10 @@ import com.common.voltnfcandroid.R;
 import com.common.voltnfcandroid.databinding.LayoutNfcWriteBinding;
 
 public class NfcWriteActivity extends BaseNfcActivity{
-    private String mText = "NFC-NewText-123";
+    private String mText = "Reset";
     private LayoutNfcWriteBinding layoutNfcWriteBinding;
 
-    private static final String TAG ="NfcWriteActivity";
+    private String TAG ="NfcWriteActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
