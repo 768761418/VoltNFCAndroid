@@ -4,7 +4,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="index_bg">#1e1e1e</color>
-    <color name="instructions_color">#ffffff</color>
+    <color name="instructions_color">#b5b5b5</color>
     <color name="btn_reset">#101010</color>
     <color name="btn_reset_text">#fe3b30</color>
+    <color name="btn_searching">#3f4044</color>
+
+    <color name="text_color">#b5b5b5</color>
 </resources>

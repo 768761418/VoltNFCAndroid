@@ -2,10 +2,16 @@ package com.common.voltnfcandroid.Activity;
 
 import androidx.databinding.DataBindingUtil;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,13 +31,18 @@ public class ResetActivity extends BaseNfcActivity {
 
     private void initUI(){
         layoutResetBinding = DataBindingUtil.setContentView(ResetActivity.this, R.layout.layout_reset);
-        // HTML 字符串
-        String htmlText = "<b>NOTE :</b> Near Field Communication (NFC) required. To proceed, your mobile device must be touching the lens of the fixture.";
+// 创建一个SpannableString对象
+        SpannableString spannableString = new SpannableString("NOTE : Near Field Communication (NFC) required. To proceed, your mobile device must be touching the lens of the fixture.");
 
-        // 使用 Html.fromHtml() 方法解析 HTML 字符串
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            layoutResetBinding.instructionsThree.setText(Html.fromHtml(htmlText, Html.FROM_HTML_MODE_LEGACY));
-        }
+// 设置"NOTE :"部分的颜色和样式
+        int startIndex = spannableString.toString().indexOf("NOTE :");
+        int endIndex = startIndex + "NOTE :".length();
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.WHITE);
+        StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
+        spannableString.setSpan(colorSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(boldSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        layoutResetBinding.instructionsThree.setText(spannableString);
+
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (!ifNFCUse()) {
             return;

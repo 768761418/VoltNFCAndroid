@@ -32,7 +32,8 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_marginTop="15dp"
-                android:textSize="30dp"/>
+                android:textSize="30dp"
+                />
 
             <TextView
                 android:id="@+id/instructions_one"
@@ -49,22 +50,49 @@
 
         <LinearLayout
             android:id="@+id/btn_cancel"
-            android:layout_width="500dp"
-            android:layout_height="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/searching"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/btn_reset"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/btn_reset_text"
+                android:textColor="@color/white"
                 android:text="@string/nfc_write_cancel"
                 android:textSize="20dp"
                 android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/searching"
+            android:layout_width="500dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/btn_searching"
+            android:layout_marginBottom="50dp"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/icon_searching"
+                android:layout_width="20dp"
+                android:layout_height="20dp">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@string/nfc_write_searching"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"/>
 
         </LinearLayout>
 

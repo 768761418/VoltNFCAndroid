@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+
+import com.bumptech.glide.Glide;
 import com.common.voltnfcandroid.R;
 import com.common.voltnfcandroid.databinding.LayoutNfcWriteBinding;
 
@@ -31,6 +33,9 @@ public class NfcWriteActivity extends BaseNfcActivity{
 
     private void initUI(){
         layoutNfcWriteBinding = DataBindingUtil.setContentView(NfcWriteActivity.this, R.layout.layout_nfc_write);
+        Glide.with(this).
+                load(R.drawable.loading).
+                into(layoutNfcWriteBinding.iconSearching);
         initClick();
     }
     private void initClick(){

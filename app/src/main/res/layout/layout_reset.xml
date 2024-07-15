@@ -10,7 +10,7 @@
         android:background="@color/index_bg">
 
         <LinearLayout
-            android:layout_width="400dp"
+            android:layout_width="500dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:ignore="MissingConstraints"
@@ -18,7 +18,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/btn_reset">
+            android:layout_marginTop="120dp">
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
@@ -37,7 +37,7 @@
                 android:id="@+id/instructions_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:gravity="center"
                 android:textColor="@color/instructions_color"
                 android:textStyle="normal"
@@ -49,7 +49,7 @@
                 android:id="@+id/instructions_two"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:gravity="center"
                 android:textColor="@color/instructions_color"
                 android:text="@string/reset_instructions_two"
@@ -60,7 +60,7 @@
                 android:id="@+id/instructions_three"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:gravity="center"
                 android:textColor="@color/instructions_color"
                 android:text="@string/reset_instructions_two"
