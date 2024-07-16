@@ -7,8 +7,8 @@
     <string name="reset_btn_text">Reset Fixture to Factory Settings</string>
 
     <string name="nfc_write_title">Near Field Communication</string>
-    <string name="nfc_write_instructions_one">Hold your phone on the lens of the fixture you‘d like to reset.</string>
-
+    <string name="nfc_write_instructions_one">Hold your phone on the lens of the fixture</string>
+    <string name="nfc_write_instructions_two">you‘d like to reset.</string>
     <string name="nfc_write_cancel">Cancel</string>
     <string name="nfc_write_searching">Searching</string>
 </resources>
