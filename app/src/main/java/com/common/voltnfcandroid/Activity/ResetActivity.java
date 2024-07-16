@@ -29,12 +29,13 @@ public class ResetActivity extends BaseNfcActivity {
         initClick();
     }
 
+    // Initial View Layout
     private void initUI(){
+        // Bind Layout
         layoutResetBinding = DataBindingUtil.setContentView(ResetActivity.this, R.layout.layout_reset);
-// 创建一个SpannableString对象
+        // Text in the Layout
         SpannableString spannableString = new SpannableString("NOTE : Near Field Communication (NFC) required. To proceed, your mobile device must be touching the lens of the fixture.");
 
-// 设置"NOTE :"部分的颜色和样式
         int startIndex = spannableString.toString().indexOf("NOTE :");
         int endIndex = startIndex + "NOTE :".length();
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.WHITE);
@@ -49,29 +50,23 @@ public class ResetActivity extends BaseNfcActivity {
         }
     }
 
+    // Reset Button Trig Activity
     private void initClick(){
         layoutResetBinding.btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(ResetActivity.this, NfcWriteActivity.class);
-//                startActivity(intent);
                 startActivity(new Intent(ResetActivity.this, NfcWriteActivity.class));
             }
         });
     }
 
-    /**
-     * 检测工作,判断设备的NFC支持情况
-     *
-     * @return
-     */
     protected boolean ifNFCUse() {
         if (mNfcAdapter == null) {
-            Toast.makeText(this, "没有nfc", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No valid Device is Detected", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (mNfcAdapter != null && !mNfcAdapter.isEnabled()) {
-            Toast.makeText(this, "没有nfc", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No valid Device is Detected", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

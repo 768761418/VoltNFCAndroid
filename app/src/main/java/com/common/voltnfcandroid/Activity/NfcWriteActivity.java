@@ -27,12 +27,14 @@ public class NfcWriteActivity extends BaseNfcActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initUI();
     }
 
+    // Second View Layout
     private void initUI(){
+        // Bind Layout
         layoutNfcWriteBinding = DataBindingUtil.setContentView(NfcWriteActivity.this, R.layout.layout_nfc_write);
+        // The rotating circle icon
         Glide.with(this).
                 load(R.drawable.loading).
                 into(layoutNfcWriteBinding.iconSearching);
@@ -60,10 +62,7 @@ public class NfcWriteActivity extends BaseNfcActivity{
     private void writeMessage(Intent intent){
         if (mText == null)
             return;
-
-        //获取Tag对象
         Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-
         if (detectedTag == null) {
             Toast.makeText(this, "No NFC tag detected", Toast.LENGTH_SHORT).show();
             return;
@@ -78,12 +77,4 @@ public class NfcWriteActivity extends BaseNfcActivity{
             Toast.makeText(this, "Reset Failed", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
-
-
-
-
-
 }
