@@ -23,14 +23,12 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="960"/>
+
+
         <activity
             android:name=".Activity.ResetActivity"
             android:exported="true"
             android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activity.NfcWriteActivity"
             android:launchMode="singleTop">
@@ -44,6 +42,15 @@
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
+        </activity>
+
+        <activity android:name=".Activity.RgbCw.RgbCwActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

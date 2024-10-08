@@ -5,5 +5,9 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.VoltNFCAndroid" parent="Base.Theme.VoltNFCAndroid" />
+    <style name="Theme.VoltNFCAndroid" parent="Base.Theme.VoltNFCAndroid" >
+        <!--        设置状态栏颜色-->
+        <item name="colorPrimaryDark">@color/top</item>
+        <item name="android:windowBackground">@color/top</item>
+    </style>
 </resources>

@@ -10,4 +10,17 @@
     <color name="btn_searching">#3f4044</color>
 
     <color name="text_color">#b5b5b5</color>
+
+    <color name="top">#010101</color>
+    <color name="text">#FFDC74</color>
+    <color name="text_bg">#424242</color>
+    <color name="tab">#343338</color>
+    <color name="tab_select">#FFDC74</color>
+    <color name="tab_select_text">#FF000000</color>
+
+<!--    <color name="top">#2C2B2C</color>-->
+<!--    <color name="text">#262626</color>-->
+<!--    <color name="tab">#58585a</color>-->
+<!--    <color name="tab_select">#aaaaaa</color>-->
+<!--    <color name="tab_select_text">#FF000000</color>-->
 </resources>
