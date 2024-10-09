@@ -18,6 +18,19 @@
     <color name="tab_select">#FFDC74</color>
     <color name="tab_select_text">#FF000000</color>
 
+
+    <color name="seekbar_start">#eeca49</color>
+    <color name="seekbar_center">#fcfdfd</color>
+    <color name="seekbar_end">#a2e6f9</color>
+
+
+<!--    色温颜色-->
+    <color name="temperature_color_1">#eeca49</color>
+    <color name="temperature_color_2">#fcfdfd</color>
+    <color name="temperature_color_3">#a2e6f9</color>
+    <color name="temperature_color_4">#a2e6f9</color>
+    <color name="temperature_color_5">#a2e6f9</color>
+
 <!--    <color name="top">#2C2B2C</color>-->
 <!--    <color name="text">#262626</color>-->
 <!--    <color name="tab">#58585a</color>-->

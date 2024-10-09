@@ -111,15 +111,16 @@
 
 
 <!--    按钮区域-->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/region_btn"
         android:layout_width="500dp"
         android:layout_height="50dp"
+        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/region_msg"
+        android:gravity="center"
         android:layout_marginTop="30dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
-
         <TextView
             android:id="@+id/btn_write"
             android:layout_width="120dp"
@@ -128,11 +129,8 @@
             android:gravity="center"
             android:textColor="@color/text"
             android:textSize="18sp"
-            android:background="@drawable/bg_btn_text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/btn_read"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_marginRight="20dp"
+            android:background="@drawable/btn_luminance_zone" />
 
         <TextView
             android:id="@+id/btn_read"
@@ -141,29 +139,12 @@
             android:text="Read"
             android:gravity="center"
             android:textColor="@color/text"
+            android:layout_marginLeft="20dp"
             android:textSize="18sp"
-            android:background="@drawable/bg_btn_text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:background="@drawable/btn_luminance_zone" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/btn_reset"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
-            android:text="Reset"
-            android:gravity="center"
-            android:textColor="@color/text"
-            android:textSize="18sp"
-            android:background="@drawable/bg_btn_text"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/btn_read"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    显示区域-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/region_show_msg"
@@ -176,7 +157,6 @@
         android:layout_marginTop="30dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
-
         <TextView
             android:id="@+id/show_msg_title"
             android:layout_width="match_parent"
@@ -199,9 +179,6 @@
             app:layout_constraintTop_toBottomOf="@id/show_msg_title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

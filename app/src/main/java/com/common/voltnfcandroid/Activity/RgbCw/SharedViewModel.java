@@ -16,44 +16,46 @@ public class SharedViewModel extends ViewModel {
     private final MutableLiveData<Integer> type = new MutableLiveData<>();
 
     // 传递读取的数据
-    private final MutableLiveData<String> readMsg = new MutableLiveData<>();
+    private final MutableLiveData<String> readRgbMsg = new MutableLiveData<>();
+    // 传递读取的数据
+    private final MutableLiveData<String> readCwMsg = new MutableLiveData<>();
 
-        // 更新 isNfcUse 的方法
+    //  使用nfc
     public void setNfcUse(boolean nfcUse) {
         isNfcUse.setValue(nfcUse);
     }
-
-    // 获取 isNfcUse 的 LiveData
     public LiveData<Boolean> getIsNfcUse() {
         return isNfcUse;
     }
 
-    // 更新 msg 的方法
+//    发送信息
     public void setMsg(String message) {
         msg.setValue(message);
     }
-
-    // 获取 msg 的 LiveData
     public LiveData<String> getMsg() {
         return msg;
     }
 
-    // 更新 读取数据 的方法
-    public void setReadMsg(String message) {
-        readMsg.setValue(message);
+    // 读取RGB数据
+    public void setReadRgbMsg(String message) {
+        readRgbMsg.setValue(message);
+    }
+    public LiveData<String> getReadRgbMsg() {
+        return readRgbMsg;
     }
 
-    // 获取 读取数据 的 LiveData
-    public LiveData<String> getReadMsg() {
-        return readMsg;
+    // 读取CW数据
+    public void setReadCwMsg(String message) {
+        readCwMsg.setValue(message);
+    }
+    public LiveData<String> getReadCwMsg() {
+        return readCwMsg;
     }
 
     // 更新 type 的方法
     public void setType(int newType) {
         type.setValue(newType);
     }
-
-    // 获取 type 的 LiveData
     public LiveData<Integer> getType() {
         return type;
     }

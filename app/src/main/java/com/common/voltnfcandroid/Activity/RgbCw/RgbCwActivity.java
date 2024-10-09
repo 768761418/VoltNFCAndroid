@@ -81,11 +81,12 @@ public class RgbCwActivity extends BaseNfcActivity {
                     writeMessage(intent,msg);
                     break;
                 case MsgData.TYPE_READ_RGB:
-                    String readMsg = readNfcTag(intent);
-                    sharedViewModel.setReadMsg(readMsg);
+                    String readRgbMsg = readNfcTag(intent);
+                    sharedViewModel.setReadRgbMsg(readRgbMsg);
                     break;
                 case MsgData.TYPE_READ_CW:
-
+                    String readCwMsg = readNfcTag(intent);
+                    sharedViewModel.setReadCwMsg(readCwMsg);
                     break;
             }
 

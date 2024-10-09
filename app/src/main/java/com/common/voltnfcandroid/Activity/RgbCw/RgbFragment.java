@@ -19,30 +19,30 @@ import com.common.voltnfcandroid.Element.DialogNfcSearch;
 import com.common.voltnfcandroid.R;
 import com.common.voltnfcandroid.databinding.FragmentRgbBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RgbFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class RgbFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private String mParam1;
+    private String mParam2;
+
 //    日志标签
     private final String TAG = "RgbFragment";
 //    布局
     private FragmentRgbBinding fragmentRgbBinding;
 //    定义默认信息
     private String msg = MsgData.MSG_HAYWARD;
+//    nfc扫描弹窗
     private DialogNfcSearch dialogNfcSearch;
 //    数据共享
     private SharedViewModel sharedViewModel;
+//    是否开启nfc扫描
     private boolean isNfcUse = false;
 
 
 
-    private String mParam1;
-    private String mParam2;
+
 
     public RgbFragment() {
         // Required empty public constructor
@@ -52,17 +52,6 @@ public class RgbFragment extends Fragment {
     public void handleNewIntent(){
 
     }
-
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RgbFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static RgbFragment newInstance(String param1, String param2) {
         RgbFragment fragment = new RgbFragment();
         Bundle args = new Bundle();
@@ -81,6 +70,9 @@ public class RgbFragment extends Fragment {
         }
 
         dialogNfcSearch = new DialogNfcSearch(getContext());
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
+
     }
 
     @Override
@@ -88,17 +80,18 @@ public class RgbFragment extends Fragment {
                              Bundle savedInstanceState) {
 //        绑定布局
         fragmentRgbBinding = fragmentRgbBinding.inflate(inflater,container,false);
-        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
 
         initMsgClick();
+//        监听数据变化
         initViewModelListener();
+
         return fragmentRgbBinding.getRoot();
     }
 
 
     private void initViewModelListener(){
-        sharedViewModel.getReadMsg().observe(getViewLifecycleOwner(), message -> {
-
+        sharedViewModel.getReadRgbMsg().observe(getViewLifecycleOwner(), message -> {
             dialogNfcSearch.dismiss();
             // 处理 msg 的变化
             Log.d("ViewModel 数据", "msg: " + message);
@@ -139,7 +132,7 @@ public class RgbFragment extends Fragment {
             }
         });
 
-//        三个按钮的点击事件
+//        2个按钮的点击事件
         fragmentRgbBinding.btnWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,14 +154,7 @@ public class RgbFragment extends Fragment {
                 sharedViewModel.setNfcUse(isNfcUse);
             }
         });
-        fragmentRgbBinding.btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                isNfcUse = true;
-                dialogNfcSearch.show();
 
-            }
-        });
 
 
 //        关闭nfc扫描窗口回调
