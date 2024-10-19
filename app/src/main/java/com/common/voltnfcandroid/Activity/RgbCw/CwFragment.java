@@ -47,8 +47,8 @@ public class CwFragment extends Fragment {
     private String msg = MsgData.MSG_HAYWARD;
 //    色温值
     int[] temperatureValues = {2700, 3000, 4000, 5000, 5700};
-//    亮度值,0,50%,100%,25%,40%,75% 值为255
-    int[] luminanceValues = {0,128,255,64,102,191};
+//    亮度值,0,50%,100%,25%,40%,75% 值为100
+    int[] luminanceValues = {0,50,100,25,40,75};
     
 
 
@@ -166,9 +166,15 @@ public class CwFragment extends Fragment {
         fragmentCwBinding.btnWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                获取当前的配置情况
+                int temp = fragmentCwBinding.cwTemperatureSeekbar.getProgress();
+                int bright = fragmentCwBinding.luminanceSeekbar.getProgress();
+//                获取写入信息
+                msg = MsgData.getWriteLuminanceAndTempValue(temp,bright);
+
                 isNfcUse = true;
                 dialogNfcSearch.show();
-
+//                通知Activity扫描NFC
                 sharedViewModel.setType(MsgData.TYPE_WRITE_CW);
                 sharedViewModel.setMsg(msg);
                 sharedViewModel.setNfcUse(isNfcUse);
@@ -180,7 +186,7 @@ public class CwFragment extends Fragment {
             public void onClick(View view) {
                 isNfcUse = true;
                 dialogNfcSearch.show();
-
+                // 通知Activity扫描NFC
                 sharedViewModel.setType(MsgData.TYPE_READ_CW);
                 sharedViewModel.setNfcUse(isNfcUse);
             }
@@ -203,7 +209,16 @@ public class CwFragment extends Fragment {
             dialogNfcSearch.dismiss();
             // 处理 msg 的变化
             Log.d("ViewModel 数据", "msg: " + message);
-            fragmentCwBinding.showMsgLuminance.setText(message);
+            // 使用 split 方法通过 _ 分割字符串
+            String[] parts = message.split("_");
+
+            // 分割后的两个字符串
+            String temp = parts[0];  // 色温
+            String bright = parts[1];  // 亮度
+
+
+            fragmentCwBinding.showMsgBright.setText(bright);
+            fragmentCwBinding.showMsgTemp.setText(temp);
         });
 
         sharedViewModel.getType().observe(getViewLifecycleOwner(),type -> {
@@ -212,7 +227,6 @@ public class CwFragment extends Fragment {
             }
         });
     }
-
 
 
 }

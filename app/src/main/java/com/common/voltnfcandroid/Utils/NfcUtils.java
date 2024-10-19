@@ -25,11 +25,12 @@ public class NfcUtils {
      */
     public static NdefRecord createTextRecord(String text) {
         byte[] langBytes = Locale.ENGLISH.getLanguage().getBytes(Charset.forName("US-ASCII"));
-        Charset utfEncoding = Charset.forName("UTF-8");
-        //将文本转换为UTF-8格式
+        // 使用UTF-16编码
+        Charset utfEncoding = Charset.forName("UTF-16");
+        // 将文本转换为UTF-16格式
         byte[] textBytes = text.getBytes(utfEncoding);
-        //设置状态字节编码最高位数为0
-        int utfBit = 0;
+        // 设置状态字节编码最高位数为1 (表示UTF-16编码)
+        int utfBit = 0x80;  // 最高位为1，表示UTF-16
         //定义状态字节
         char status = (char) (utfBit + langBytes.length);
         byte[] data = new byte[1 + langBytes.length + textBytes.length];
@@ -109,9 +110,39 @@ public class NfcUtils {
             } catch (Exception e) {
             }
         }
-
         return mTagText;
     }
+
+    /**
+     * 读取NFC标签的字节数据
+     */
+    public static byte[] readNfcTagByte(Intent intent) {
+        byte[] nfcBytes = null;
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            NdefMessage msgs[] = null;
+            int contentSize = 0;
+            if (rawMsgs != null) {
+                msgs = new NdefMessage[rawMsgs.length];
+                for (int i = 0; i < rawMsgs.length; i++) {
+                    msgs[i] = (NdefMessage) rawMsgs[i];
+                    contentSize += msgs[i].toByteArray().length;
+                }
+            }
+            try {
+                if (msgs != null) {
+                    NdefRecord record = msgs[0].getRecords()[0];
+                    nfcBytes = record.getPayload();  // 获取字节数据
+                }
+            } catch (Exception e) {
+                Log.e("NFC_Bytes", "Error reading NFC tag bytes", e);
+            }
+        }
+        return nfcBytes;
+    }
+
+
+
 
     /**
      * 解析NDEF文本数据，从第三个字节开始，后面的文本数据

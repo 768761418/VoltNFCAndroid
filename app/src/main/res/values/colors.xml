@@ -26,10 +26,10 @@
 
 <!--    色温颜色-->
     <color name="temperature_color_1">#eeca49</color>
-    <color name="temperature_color_2">#fcfdfd</color>
-    <color name="temperature_color_3">#a2e6f9</color>
-    <color name="temperature_color_4">#a2e6f9</color>
-    <color name="temperature_color_5">#a2e6f9</color>
+    <color name="temperature_color_2">#f0d162</color>
+    <color name="temperature_color_3">#f9f2d8</color>
+    <color name="temperature_color_4">#c9f0fb</color>
+    <color name="temperature_color_5">#a4e6f9</color>
 
 <!--    <color name="top">#2C2B2C</color>-->
 <!--    <color name="text">#262626</color>-->

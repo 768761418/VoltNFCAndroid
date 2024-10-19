@@ -3,6 +3,7 @@ package com.common.voltnfcandroid.Activity.RgbCw;
 import static com.common.voltnfcandroid.Utils.NfcUtils.createTextRecord;
 import static com.common.voltnfcandroid.Utils.NfcUtils.writeTag;
 import static com.common.voltnfcandroid.Utils.NfcUtils.readNfcTag;
+import static com.common.voltnfcandroid.Utils.NfcUtils.readNfcTagByte;
 
 import android.content.Intent;
 import android.nfc.NdefMessage;
@@ -85,7 +86,11 @@ public class RgbCwActivity extends BaseNfcActivity {
                     sharedViewModel.setReadRgbMsg(readRgbMsg);
                     break;
                 case MsgData.TYPE_READ_CW:
-                    String readCwMsg = readNfcTag(intent);
+//                    读取字节数据
+                    byte[] bytes = readNfcTagByte(intent);
+//                    解析数据
+                    String readCwMsg = MsgData.getReadLuminanceAndTempValue(bytes);
+//                    通知fragement修改数据
                     sharedViewModel.setReadCwMsg(readCwMsg);
                     break;
             }
@@ -129,7 +134,7 @@ public class RgbCwActivity extends BaseNfcActivity {
         NdefMessage ndefMessage = new NdefMessage(new NdefRecord[]{createTextRecord(msg)});
         boolean result = writeTag(ndefMessage, detectedTag);
         if (result) {
-            Toast.makeText(this, "Write Message Successfully:" + msg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Write Message Successfully", Toast.LENGTH_SHORT).show();
 //            通知fragement关闭dialog
             sharedViewModel.setType(MsgData.TYPE_WRITE_SUCCESS);
 
