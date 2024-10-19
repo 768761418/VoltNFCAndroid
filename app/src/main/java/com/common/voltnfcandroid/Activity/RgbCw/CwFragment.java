@@ -209,16 +209,23 @@ public class CwFragment extends Fragment {
             dialogNfcSearch.dismiss();
             // 处理 msg 的变化
             Log.d("ViewModel 数据", "msg: " + message);
-            // 使用 split 方法通过 _ 分割字符串
-            String[] parts = message.split("_");
 
-            // 分割后的两个字符串
-            String temp = parts[0];  // 色温
-            String bright = parts[1];  // 亮度
+            if (message.equals("")){
+                fragmentCwBinding.showMsgBright.setText("");
+                fragmentCwBinding.showMsgTemp.setText("");
+            }else {
+                // 使用 split 方法通过 _ 分割字符串
+                String[] parts = message.split("_");
+
+                // 分割后的两个字符串
+                String temp = parts[0];  // 色温
+                String bright = parts[1];  // 亮度
 
 
-            fragmentCwBinding.showMsgBright.setText(bright);
-            fragmentCwBinding.showMsgTemp.setText(temp);
+                fragmentCwBinding.showMsgBright.setText(bright);
+                fragmentCwBinding.showMsgTemp.setText(temp);
+            }
+
         });
 
         sharedViewModel.getType().observe(getViewLifecycleOwner(),type -> {

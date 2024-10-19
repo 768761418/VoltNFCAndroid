@@ -83,15 +83,27 @@ public class RgbCwActivity extends BaseNfcActivity {
                     break;
                 case MsgData.TYPE_READ_RGB:
                     String readRgbMsg = readNfcTag(intent);
-                    sharedViewModel.setReadRgbMsg(readRgbMsg);
+                    if (!readRgbMsg.equals(MsgData.MSG_HAYWARD)
+                            && !readRgbMsg.equals(MsgData.MSG_JANDY)
+                            && !readRgbMsg.equals(MsgData.MSG_PENTAIR_POOL)){
+                        sharedViewModel.setReadRgbMsg("");
+                    }else {
+                        sharedViewModel.setReadRgbMsg(readRgbMsg);
+                    }
                     break;
                 case MsgData.TYPE_READ_CW:
 //                    读取字节数据
                     byte[] bytes = readNfcTagByte(intent);
 //                    解析数据
                     String readCwMsg = MsgData.getReadLuminanceAndTempValue(bytes);
-//                    通知fragement修改数据
-                    sharedViewModel.setReadCwMsg(readCwMsg);
+                    if (readCwMsg != null && !readCwMsg.equals("")){
+                        //                    通知fragement修改数据
+                        sharedViewModel.setReadCwMsg(readCwMsg);
+                    }else {
+                        sharedViewModel.setReadCwMsg("");
+                    }
+                    Log.d(TAG, "onNewIntent: " +readCwMsg);
+
                     break;
             }
 

@@ -38,7 +38,7 @@ public class MsgData {
 
 
     public static String getReadLuminanceAndTempValue(byte[] bytes){
-        String value = "";
+        String value = null;
         // 确保字节数组不为空
         if (bytes == null || bytes.length == 0) {
             return value; // 返回默认值
