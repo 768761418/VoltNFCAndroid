@@ -20,8 +20,8 @@
         android:id="@+id/region_msg"
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp"
-        android:paddingBottom="30dp"
+        android:paddingTop="55dp"
+        android:paddingBottom="55dp"
         android:background="@drawable/bg_msg_layout"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
@@ -30,11 +30,11 @@
         app:layout_constraintRight_toRightOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp">
+            android:layout_height="100dp">
             <ImageView
                 android:id="@+id/select_hayward"
                 android:layout_width="60dp"
-                android:layout_height="80dp"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/icon_select"
                 android:visibility="visible"/>
@@ -42,7 +42,7 @@
             <LinearLayout
                 android:id="@+id/btn_hayward"
                 android:layout_width="300dp"
-                android:layout_height="80dp"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/bg_icon_msg"
                 android:gravity="center">
@@ -56,12 +56,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="40dp">
+            android:layout_height="100dp"
+            android:layout_marginTop="55dp">
             <ImageView
                 android:id="@+id/select_jandy"
                 android:layout_width="60dp"
-                android:layout_height="80dp"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/icon_select"
                 android:visibility="invisible"/>
@@ -69,7 +69,7 @@
             <LinearLayout
                 android:id="@+id/btn_jandy"
                 android:layout_width="300dp"
-                android:layout_height="80dp"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/bg_icon_msg"
                 android:gravity="center">
@@ -83,12 +83,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="40dp">
+            android:layout_height="100dp"
+            android:layout_marginTop="55dp">
             <ImageView
                 android:id="@+id/select_pentair_pool"
                 android:layout_width="60dp"
-                android:layout_height="80dp"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/icon_select"
                 android:visibility="invisible"/>
@@ -96,7 +96,7 @@
             <LinearLayout
                 android:id="@+id/btn_pentair_pool"
                 android:layout_width="300dp"
-                android:layout_height="80dp"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/bg_icon_msg"
                 android:gravity="center">
@@ -118,14 +118,14 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/region_msg"
         android:gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="35dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
         <TextView
             android:id="@+id/btn_write"
             android:layout_width="120dp"
             android:layout_height="match_parent"
-            android:text="Write"
+            android:text="Program"
             android:gravity="center"
             android:textColor="@color/text"
             android:textSize="18sp"
@@ -152,9 +152,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_msg_layout"
         app:layout_constraintTop_toBottomOf="@+id/region_btn"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:layout_marginTop="30dp"
+        android:paddingTop="22dp"
+        android:paddingBottom="22dp"
+        android:layout_marginTop="35dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
         <TextView

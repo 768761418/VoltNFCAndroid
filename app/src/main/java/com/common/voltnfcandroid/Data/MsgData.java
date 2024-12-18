@@ -15,10 +15,14 @@ public class MsgData {
     public static final int TYPE_READ_CW = 1011;
     public static final int TYPE_WRITE_SUCCESS = 1100;
 
-    public static final String MSG_HAYWARD = "Hayward";
-    public static final String MSG_JANDY = "Jandy";
-    public static final String MSG_PENTAIR_POOL = "pentair";
+    public static final String MSG_HAYWARD = "Haywa";
+    public static final String MSG_JANDY = "Jaywa";
+    public static final String MSG_PENTAIR_POOL = "Paywa";
 
+
+    public static final String MSG_HAYWARD_TEXT = "Hayward";
+    public static final String MSG_JANDY_TEXT = "Jandy";
+    public static final String MSG_PENTAIR_POOL_TEXT = "Pentair";
 
     /**
      * 获取色温和亮度的nfc写入信息
@@ -27,7 +31,7 @@ public class MsgData {
      * */
     public static String getWriteLuminanceAndTempValue(int temp , int bright){
         // 将温度转换为UInt8并计算
-        char tempChar = (char)((temp - 2700) * 100 / 3000);
+        char tempChar = (char)((temp - 2700) * 100 / 3800);
         char brightChar = (char)bright;
         Log.d(TAG, "demo: " + tempChar + "//" + brightChar);
 
@@ -50,17 +54,19 @@ public class MsgData {
         }
         Log.d(TAG, "getReadLuminanceAndTempValue: " + sb.toString());
 
-        if (bytes[6] == 0x31){
-            int tempValue = (bytes[8]* 30) + 2700;
-            String brightValue = bytes[10] + "%";
+        if (bytes[5] == 0x31){
+            int tempValue = (bytes[7]* 38) + 2700;
+            String brightValue = bytes[9] + "%";
+            Log.d(TAG, "getReadLuminanceAndTempValue: " + tempValue + "k");
             switch (tempValue){
-                case 3450:
+//                case 3450:
+                case 3042:
                     value = "3000k_" + brightValue;
                     break;
-                case 4530:
+                case 4486:
                     value = "4000k_" + brightValue;
                     break;
-                case 5310:
+                case 5588:
                     value = "5000k_" + brightValue;
                     break;
                 default:

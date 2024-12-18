@@ -46,7 +46,9 @@ public class CwFragment extends Fragment {
     //    定义默认信息
     private String msg = MsgData.MSG_HAYWARD;
 //    色温值
-    int[] temperatureValues = {2700, 3000, 4000, 5000, 5700};
+//    int[] temperatureValues = {2700, 3000, 4000, 5000, 6500};
+    int[] temperatureValues = {2700, 3042, 4486, 5588, 6500};
+
 //    亮度值,0,50%,100%,25%,40%,75% 值为100
     int[] luminanceValues = {0,50,100,25,40,75};
     
@@ -208,7 +210,7 @@ public class CwFragment extends Fragment {
         sharedViewModel.getReadCwMsg().observe(getViewLifecycleOwner(), message -> {
             dialogNfcSearch.dismiss();
             // 处理 msg 的变化
-            Log.d("ViewModel 数据", "msg: " + message);
+            Log.d(TAG, "msg: " + message);
 
             if (message.equals("")){
                 fragmentCwBinding.showMsgBright.setText("");

@@ -1,18 +1,20 @@
 import com.android.build.gradle.internal.api.ApkVariantOutputImpl
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+
 plugins {
     id("com.android.application")
 }
 
 android {
     namespace = "com.common.voltnfcandroid"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.common.voltnfcandroid"
         minSdk = 23
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -30,6 +32,7 @@ android {
             }
         }
     }
+
 
     buildTypes {
         release {

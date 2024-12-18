@@ -23,7 +23,7 @@
     <string name="temperature_3000">3000k</string>
     <string name="temperature_4000">4000k</string>
     <string name="temperature_5000">5000k</string>
-    <string name="temperature_5700">5700k</string>
+    <string name="temperature_6500">6500k</string>
 
     <string name="luminance_0">0%</string>
     <string name="luminance_25">25%</string>
