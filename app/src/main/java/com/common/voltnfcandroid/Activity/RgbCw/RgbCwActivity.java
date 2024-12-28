@@ -83,18 +83,19 @@ public class RgbCwActivity extends BaseNfcActivity {
         if (isNfcUse){
             switch (type){
                 case MsgData.TYPE_WRITE_RGB:
+                    writeToNfcV(intent,msg,MsgData.TYPE_TAG_RGB);
+                    break;
                 case MsgData.TYPE_WRITE_CW:
                     writeMessage(intent,msg);
                     break;
                 case MsgData.TYPE_READ_RGB:
-                    String readRgbMsg = readNfcTag(intent);
-                    Log.d(TAG, "onNewIntent:messages" + msg);
-                    if (!readRgbMsg.equals(MsgData.MSG_HAYWARD)
-                            && !readRgbMsg.equals(MsgData.MSG_JANDY)
-                            && !readRgbMsg.equals(MsgData.MSG_PENTAIR_POOL)){
-                        sharedViewModel.setReadRgbMsg("");
-                    }else {
+                    String readRgbMsg =readFromNfcV(intent,MsgData.TYPE_TAG_RGB);
+                    Log.d(TAG, "onNewIntent: " + readRgbMsg);
+                    if (!readRgbMsg.equals("")){
                         sharedViewModel.setReadRgbMsg(readRgbMsg);
+                    }else {
+//                        提示切换到cw模式
+                        Toast.makeText(this,getString(R.string.read_mode_cw_fail),Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case MsgData.TYPE_READ_CW:
@@ -215,7 +216,7 @@ public class RgbCwActivity extends BaseNfcActivity {
         }
     }
 
-    private void writeMultipleBlocksToNfcV(Intent intent,String msg) {
+    private void writeToNfcV(Intent intent,String msg,int tagType) {
         Log.d(TAG, "十六进制写入NFC");
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         if (tag == null) {
@@ -230,71 +231,39 @@ public class RgbCwActivity extends BaseNfcActivity {
         try {
             // 连接到标签
             nfcV.connect();
-            byte[] dataBlock4;
-            switch (msg){
-                case MsgData.MSG_HAYWARD:
-                    Log.d(TAG, "writeMultipleBlocksToNfcV: 1");
-                    dataBlock4 = new byte[]{(byte) 0x6e, (byte) 0xff, (byte) 0xfe, (byte) 0x48};
-                    break;
-                case MsgData.MSG_JANDY:
-                    Log.d(TAG, "writeMultipleBlocksToNfcV: 2");
 
-                    dataBlock4 = new byte[]{(byte) 0x6e, (byte) 0xff, (byte) 0xfe, (byte) 0x4A};
-                    break;
-                case MsgData.MSG_PENTAIR_POOL:
-                    Log.d(TAG, "writeMultipleBlocksToNfcV: 3");
+//            构建指令
+            byte[][] dataArray = buildInstruction(nfcV,msg,tagType);
 
-                    dataBlock4 = new byte[]{(byte) 0x6e, (byte) 0xff, (byte) 0xfe, (byte) 0x50};
-                    break;
-                default:
-                    Log.d(TAG, "writeMultipleBlocksToNfcV: 4"+msg);
-
-                    Toast.makeText(this,"Please switch the true message to write to NFC" ,Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "数据不正确");
-                    return;
-            }
-
-
-            byte[][] dataArray = getNfcVBytes(dataBlock4);
 
             // 定义写入起始块和块数量
             int startBlock = 3; // 起始块编号
             int blockCount = dataArray.length; // 块数量
-
-
+//            标识
+            int logo = 1;
             // 写入多个块
             for (int i = 0; i < blockCount; i++) {
-                // 构造ISO15693的写单块命令 (0x21 for WriteSingleBlock)
-                byte[] command = new byte[11 + 4 ];
-                command[0] = 0x22; // 标志位（高数据速率，带地址）
-                command[1] = 0x21; // 命令码（写单块）
-                System.arraycopy(nfcV.getTag().getId(), 0, command, 2, 8); // UID
-                command[10] = (byte) (startBlock + i); // 块号
-                System.arraycopy(dataArray[i], 0, command, 11, 4); // 数据
-                Log.d(TAG, "kkkks: " +Arrays.toString(command));
-                StringBuilder hexString = new StringBuilder();
-                for (byte b : command) {
-                    hexString.append(String.format("%02X ", b));
-                }
-                Log.d(TAG, "kls" + hexString.toString().trim());
+                byte[] command = MsgData.getWriteCommand(nfcV.getTag().getId(),startBlock,i,dataArray);
+//                打印信息
+                MsgData.printBytesToHex(command,"RGB写入");
                 // 发送命令
                 byte[] response = nfcV.transceive(command);
-
                 // 检查响应
                 if (response.length > 0 && response[0] == 0x00) {
                     Log.d(TAG, "写入成功！");
 //                    通知fragment关闭dialog
                     sharedViewModel.setType(MsgData.TYPE_WRITE_SUCCESS);
-                    Toast.makeText(this, "Write Message Successfully", Toast.LENGTH_SHORT).show();
+
                 } else {
-                    StringBuilder error = new StringBuilder();
-                    for (byte b : response) {
-                        error.append(String.format("%02X ", b));
-                    }
-                    Log.e(TAG, "写入失败，错误码：" + (response.length > 0 ?error.toString().trim() : "未知错误"));
+                    logo = 0;
+                    String error = MsgData.printBytesToHex(response,"写入错误");
                     Toast.makeText(this, "Write Message Successfully"+ (response.length > 0 ?error.toString().trim() : "unknow"), Toast.LENGTH_SHORT).show();
                 }
             }
+            if (logo == 1){
+                Toast.makeText(this, getString(R.string.write_success), Toast.LENGTH_SHORT).show();
+            }
+
 //            释放资源
             nfcV.close();
             // 写入成功
@@ -314,15 +283,124 @@ public class RgbCwActivity extends BaseNfcActivity {
     }
 
 
-    private static byte[][] getNfcVBytes(byte[] dataBlock4) {
-        byte[] dataBlock5 = new byte[]{(byte) 0x00, (byte) 0x61, (byte) 0x00, (byte) 0x79};
-        byte[] dataBlock6 = new byte[]{(byte) 0x00, (byte) 0x77, (byte) 0x00, (byte) 0x61};
-        byte[] dataBlock7 = new byte[]{(byte) 0x00, (byte) 0x72, (byte) 0x00, (byte) 0x64};
-        byte[] dataBlock8 = new byte[]{(byte) 0x00, (byte) 0xfe, (byte) 0x00, (byte) 0x00};
-        byte[] dataBlock9 = new byte[]{(byte) 0x00, (byte) 0xfe, (byte) 0x00, (byte) 0x00};
-        byte[][] dataArray = new byte[][]{dataBlock4, dataBlock5, dataBlock6, dataBlock7,dataBlock8,dataBlock9};
-        return dataArray;
+    private String readFromNfcV(Intent intent,int tagType){
+        String readMsg = "";
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        if (tag == null) {
+            Toast.makeText(this, "No NFC tag detected", Toast.LENGTH_SHORT).show();
+            return readMsg;
+        }
+        NfcV nfcV = NfcV.get(tag);
+        if (nfcV == null) {
+            // 标签不支持 ISO15693
+            return readMsg;
+        }
+        try {
+            // 连接到标签
+            nfcV.connect();
+
+//            读取第五行
+            int type = MsgData.getTagMode(nfcV,(byte) 0x05);
+            Log.d(TAG, "rgvRead: " + type);
+//            如果是rgb模式的读取
+            if (tagType == MsgData.TYPE_TAG_RGB){
+//                如果是rgb的卡
+                if (type == MsgData.TYPE_TAG_RGB){
+//                    读第三块的最后一个字符判读类型
+                    byte[] dataList = MsgData.getTagData(nfcV,(byte)0x03);
+                    MsgData.printBytesToHex(dataList,"rgvRead");
+                    if (dataList != null){
+                        byte data = dataList[dataList.length - 1];
+                        switch (data){
+                            case (byte) 0x48:
+                                readMsg = MsgData.MSG_HAYWARD_TEXT;
+                                break;
+                            case (byte) 0x4A:
+                                readMsg = MsgData.MSG_JANDY_TEXT;
+                                break;
+                            case (byte) 0x50:
+                                readMsg = MsgData.MSG_PENTAIR_POOL_TEXT;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+
+
+        }
+        catch (IOException e) {
+            // 写入失败
+            System.err.println("Write failed: " + e.getMessage());
+        } finally {
+            try {
+                nfcV.close();
+            } catch (IOException e) {
+                // 关闭失败
+                e.printStackTrace();
+            }
+        }
+        return  readMsg;
+
     }
+
+//    构建写入指令
+//    TODO white的写入逻辑
+    private byte[][] buildInstruction(NfcV nfcV,String msg,int tagType) throws IOException {
+        byte[][] dataArray ;
+        int type = MsgData.getTagMode(nfcV,(byte) 0x05);
+
+//        校验读取模式
+        if (tagType == MsgData.TYPE_TAG_RGB){
+            //  先校验卡是不是RGB模式或者新卡
+            if (type == MsgData.TYPE_TAG_CW){
+                Toast.makeText(this,getString(R.string.write_type_fail),Toast.LENGTH_SHORT).show();
+                nfcV.close();
+                sharedViewModel.setType(MsgData.TYPE_WRITE_SUCCESS);
+                return null;
+            }
+//            如果通过了校验就构建写入信息
+            byte[] dataBlock4;
+            switch (msg){
+                case MsgData.MSG_HAYWARD:
+                    Log.d(TAG, "writeMultipleBlocksToNfcV: 1");
+                    dataBlock4 = new byte[]{(byte) 0x6e, (byte) 0xff, (byte) 0xfe, (byte) 0x48};
+                    break;
+                case MsgData.MSG_JANDY:
+                    Log.d(TAG, "writeMultipleBlocksToNfcV: 2");
+                    dataBlock4 = new byte[]{(byte) 0x6e, (byte) 0xff, (byte) 0xfe, (byte) 0x4A};
+                    break;
+                case MsgData.MSG_PENTAIR_POOL:
+                    Log.d(TAG, "writeMultipleBlocksToNfcV: 3");
+                    dataBlock4 = new byte[]{(byte) 0x6e, (byte) 0xff, (byte) 0xfe, (byte) 0x50};
+                    break;
+                default:
+                    Log.d(TAG, "writeMultipleBlocksToNfcV: 4"+msg);
+                    Toast.makeText(this,"Please switch the true message to write to NFC" ,Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "数据不正确");
+                    return null;
+            }
+            dataArray = MsgData.getNfcVRgbBytes(dataBlock4);
+
+        } else {
+            // 先校验是不是CW模式或者新卡
+            if (type == MsgData.TYPE_TAG_RGB){
+                Toast.makeText(this,getString(R.string.write_type_fail),Toast.LENGTH_SHORT).show();
+                nfcV.close();
+                sharedViewModel.setType(MsgData.TYPE_WRITE_SUCCESS);
+                return null;
+            }
+
+            dataArray = null;
+        }
+
+        return dataArray;
+
+    }
+
+
+
 
 
 }

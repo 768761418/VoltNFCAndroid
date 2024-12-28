@@ -238,9 +238,6 @@ public class NfcUtils {
     }
 
 
-    public void printByte(){
-
-    }
 
 
 }

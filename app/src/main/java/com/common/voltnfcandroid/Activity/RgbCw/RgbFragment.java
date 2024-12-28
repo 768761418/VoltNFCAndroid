@@ -95,19 +95,7 @@ public class RgbFragment extends Fragment {
             dialogNfcSearch.dismiss();
             // 处理 msg 的变化
             Log.d(TAG, "messages: " + message);
-            String readMsg = "";
-            switch (message){
-                case MsgData.MSG_HAYWARD:
-                    readMsg = MsgData.MSG_HAYWARD_TEXT;
-                    break;
-                case MsgData.MSG_JANDY:
-                    readMsg = MsgData.MSG_JANDY_TEXT;
-                    break;
-                case MsgData.MSG_PENTAIR_POOL:
-                    readMsg = MsgData.MSG_PENTAIR_POOL_TEXT;
-                    break;
-            }
-            fragmentRgbBinding.showMsgContent.setText(readMsg);
+            fragmentRgbBinding.showMsgContent.setText(message);
         });
 
         sharedViewModel.getType().observe(getViewLifecycleOwner(),type -> {

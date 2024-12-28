@@ -31,4 +31,9 @@
     <string name="luminance_50">50%</string>
     <string name="luminance_75">75%</string>
     <string name="luminance_100">100%</string>
+
+    <string name="write_success">Program Success</string>
+    <string name="write_type_fail">Fixture Type Wrong</string>
+    <string name="read_mode_rgb_fail">Mode Incorrect:Please switch to RGBW mode</string>
+    <string name="read_mode_cw_fail">Mode Incorrect:Please switch to CW mode</string>
 </resources>
