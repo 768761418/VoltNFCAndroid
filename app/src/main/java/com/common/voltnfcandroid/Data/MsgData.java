@@ -36,12 +36,12 @@ public class MsgData {
      * */
     public static String getWriteLuminanceAndTempValue(int temp , int bright){
         // 将温度转换为UInt8并计算
-        char tempChar = (char)((temp - 2700) * 100 / 3800);
-        char brightChar = (char)bright;
+        int tempChar = ((temp - 2700) * 100 / 3800);
+        int brightChar = bright;
         Log.d(TAG, "demo: " + tempChar + "//" + brightChar);
 
         // 拼接成字符串
-        String msg = "1" + tempChar + brightChar;
+        String msg =  tempChar+ "_"+ brightChar;
         return  msg;
     }
 
@@ -110,10 +110,10 @@ public class MsgData {
         return dataArray;
     }
 
-    public static byte[][] getNfcVCwBytes(byte[] dataBlock4) {
-        byte[] dataBlock5 = new byte[]{(byte) 0x00, (byte) 0x61, (byte) 0x00, (byte) 0x79};
-        byte[] dataBlock6 = new byte[]{(byte) 0x50, (byte) 0x50, (byte) 0x50, (byte) 0x50};
-        byte[] dataBlock7 = new byte[]{(byte) 0x50, (byte) 0x50, (byte) 0x50, (byte) 0x50};
+    public static byte[][] getNfcVCwBytes(byte[] dataBlock5) {
+        byte[] dataBlock4 = new byte[]{(byte) 0x6e, (byte) 0xff, (byte) 0xfe, (byte) 0x31};
+        byte[] dataBlock6 = new byte[]{(byte) 0x31, (byte) 0x31, (byte) 0x31, (byte) 0x31};
+        byte[] dataBlock7 = new byte[]{(byte) 0x31, (byte) 0x31, (byte) 0x31, (byte) 0x31};
         byte[][] dataArray = new byte[][]{dataBlock4, dataBlock5, dataBlock6, dataBlock7};
         return dataArray;
     }

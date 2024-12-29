@@ -6,15 +6,18 @@ import static com.common.voltnfcandroid.Utils.NfcUtils.readNfcTag;
 import static com.common.voltnfcandroid.Utils.NfcUtils.readNfcTagByte;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.NfcV;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +37,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import kotlin.io.LineReader;
 
 public class RgbCwActivity extends BaseNfcActivity {
     private List<Fragment> fragments = new ArrayList<>();
@@ -86,7 +91,7 @@ public class RgbCwActivity extends BaseNfcActivity {
                     writeToNfcV(intent,msg,MsgData.TYPE_TAG_RGB);
                     break;
                 case MsgData.TYPE_WRITE_CW:
-                    writeMessage(intent,msg);
+                    writeToNfcV(intent,msg,MsgData.TYPE_TAG_CW);
                     break;
                 case MsgData.TYPE_READ_RGB:
                     String readRgbMsg =readFromNfcV(intent,MsgData.TYPE_TAG_RGB);
@@ -235,6 +240,10 @@ public class RgbCwActivity extends BaseNfcActivity {
 //            构建指令
             byte[][] dataArray = buildInstruction(nfcV,msg,tagType);
 
+//            没有指令直接return
+            if (dataArray == null){
+                return;
+            }
 
             // 定义写入起始块和块数量
             int startBlock = 3; // 起始块编号
@@ -355,7 +364,11 @@ public class RgbCwActivity extends BaseNfcActivity {
         if (tagType == MsgData.TYPE_TAG_RGB){
             //  先校验卡是不是RGB模式或者新卡
             if (type == MsgData.TYPE_TAG_CW){
-                Toast.makeText(this,getString(R.string.write_type_fail),Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(this,getString(R.string.write_type_fail),Toast.LENGTH_SHORT);
+//                View layout =  toast.getView();
+//                layout.setBackgroundResource(R.color.btn_reset_text);
+
+                toast.show();
                 nfcV.close();
                 sharedViewModel.setType(MsgData.TYPE_WRITE_SUCCESS);
                 return null;
@@ -391,8 +404,28 @@ public class RgbCwActivity extends BaseNfcActivity {
                 sharedViewModel.setType(MsgData.TYPE_WRITE_SUCCESS);
                 return null;
             }
+            int temp = 0;
+            int bright = 0;
+            // 使用 split 方法通过 _ 分割字符串
+            String[] parts = msg.split("_");
 
-            dataArray = null;
+            try {
+                // 分割后的两个字符串
+                temp = Integer.parseInt(parts[0]);  // 色温
+                bright =Integer.parseInt(parts[1]) ;  // 亮度
+            }catch (NumberFormatException e){
+                Log.e(TAG, "buildInstruction: ",e);
+                Toast.makeText(this,getString(R.string.write_type_fail),Toast.LENGTH_SHORT).show();
+                nfcV.close();
+                sharedViewModel.setType(MsgData.TYPE_WRITE_SUCCESS);
+                return null;
+            }
+
+
+
+            byte[] dataBlock5 = new byte[]{(byte) 0x00,(byte) temp, (byte) 0x00, (byte) bright};
+
+            dataArray = MsgData.getNfcVCwBytes(dataBlock5);
         }
 
         return dataArray;

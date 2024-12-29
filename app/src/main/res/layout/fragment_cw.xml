@@ -227,7 +227,7 @@
                         android:layout_height="35dp"
                         android:maxHeight = "30dp"
                         android:maxWidth="300dp"
-                        android:progress="50"
+                        android:progress="100"
                         android:max="100"
                         android:thumb="@drawable/seekbar_thumb"
                         android:thumbOffset="6dp"
