@@ -101,6 +101,7 @@ public class RgbCwActivity extends BaseNfcActivity {
                     }else {
 //                        提示切换到cw模式
                         Toast.makeText(this,getString(R.string.read_mode_cw_fail),Toast.LENGTH_SHORT).show();
+                        sharedViewModel.setType(MsgData.TYPE_WRITE_SUCCESS);
                     }
                     break;
                 case MsgData.TYPE_READ_CW:
