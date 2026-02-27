@@ -9,13 +9,13 @@ plugins {
 
 android {
     namespace = "com.common.voltnfcandroid"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.common.voltnfcandroid"
         minSdk = 23
-        targetSdk = 34
-        versionCode = 3
+        targetSdk = 35
+        versionCode = 5
         versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -44,8 +44,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures{
         dataBinding = true
@@ -55,7 +55,8 @@ android {
 dependencies {
 
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    //noinspection GradleDependency,GradleDependency
+    implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
